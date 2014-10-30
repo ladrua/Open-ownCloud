@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>42AD3A78-25A8-4A22-81DD-71EA5F1ACE9C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Open-ownCloud</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</key>
+		<string>https://github.com/ladrua/Open-ownCloud.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Open-ownCloud/Open-ownCloud.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ladrua/Open-ownCloud.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Open-ownCloud</string>
+		</dict>
+	</array>
+</dict>
+</plist>

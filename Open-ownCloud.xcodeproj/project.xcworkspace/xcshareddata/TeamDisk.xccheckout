@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D8C9B736-593B-4180-97F6-A8818F51FE07</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TeamDisk</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9F2C5B8E937F564A133815CF068A24482D674A3E</key>
+		<string>https://github.com/leyleo/TeamDisk_iOS.git</string>
+		<key>A46FEA5762959BB8AF87ACD99AA9F1E0CD9D0F63</key>
+		<string>https://github.com/leyleo/leowebdav.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TeamDisk/TeamDisk.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9F2C5B8E937F564A133815CF068A24482D674A3E</key>
+		<string>../../..</string>
+		<key>A46FEA5762959BB8AF87ACD99AA9F1E0CD9D0F63</key>
+		<string>../../..leowebdav</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/leyleo/TeamDisk_iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9F2C5B8E937F564A133815CF068A24482D674A3E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9F2C5B8E937F564A133815CF068A24482D674A3E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TeamDisk_iOS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A46FEA5762959BB8AF87ACD99AA9F1E0CD9D0F63</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TeamDisk_iOSleowebdav</string>
+		</dict>
+	</array>
+</dict>
+</plist>
