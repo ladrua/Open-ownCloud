@@ -28,28 +28,7 @@ Open-ownCloud iOS app, based on TeamDisk WebDAV app.
 
 5. Video playback, using iOS default video player.
 
-# How to checkout
 
-Notify: the project has the submodule [leowebdav](https://github.com/leyleo/leowebdav), so the codes from zip maybe not enough, you'd better check out the whole project as following.
-
-```
-git clone https://github.com/leyleo/TeamDisk_iOS.git
-
-cd TeamDisk_iOS
-
-git submodule init
-
-git submodule update
-```
-
-# ScreenShots
-
-![choose picture](/ScreenShot/choose%20pic.png)
-![doc detail](/ScreenShot/doc%20detail.png)
-![list](/ScreenShot/list.png)
-![music](/ScreenShot/music.png)
-![pic list](/ScreenShot/pic%20list.png)
-![upload](/ScreenShot/upload.png)
 
 # Thanks
 
