@@ -3,6 +3,8 @@
 
 Open-ownCloud iOS app, based on TeamDisk WebDAV app.
 
+UI problems with iOS 8 , looks fine in iOS 7.*.
+
 ##FEATURES:
 
 ###[WebDAV Explorer]
