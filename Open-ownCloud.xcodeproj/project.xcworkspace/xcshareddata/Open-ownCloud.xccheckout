@@ -10,29 +10,29 @@
 	<string>Open-ownCloud</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</key>
+		<key>54D916196BA1370080078802AF1F70DAB2115646</key>
 		<string>https://github.com/ladrua/Open-ownCloud.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Open-ownCloud/Open-ownCloud.xcodeproj</string>
+	<string>Open-ownCloud.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</key>
-		<string>../../..</string>
+		<key>54D916196BA1370080078802AF1F70DAB2115646</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/ladrua/Open-ownCloud.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</string>
+	<string>54D916196BA1370080078802AF1F70DAB2115646</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3C9ADDD0E49D41F1E5A347674EBCA6750B3AB718</string>
+			<string>54D916196BA1370080078802AF1F70DAB2115646</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Open-ownCloud</string>
 		</dict>
