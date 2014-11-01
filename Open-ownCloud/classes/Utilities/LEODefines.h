@@ -103,7 +103,7 @@ static NSString *const kServerListPlistFileName =   @"/serverList.plist";
 static NSString *const kContentTypesPlistFileName   =   @"/res/contentTypes.plist";
 static NSString *const kExtendUTIPlistFileName  =   @"/res/extendUTI.plist";
 static NSString *const kExtentToMIMEPlistFileName   =   @"/res/extentToMIME.plist";
-static NSString *const kResourceRootPath    =   @"/res/";
+static NSString *const kResourceRootPath    =   @"../res/";
 
 static NSString *const kDefaultFolderImage  =   @"/res/folder.png";
 static NSString *const kNavigationBg    =   @"../res/navigationBg.png";
@@ -123,7 +123,7 @@ static NSString *const kMusicMaxImage   =   @"../res/slider_max.png";
 static NSString *const kMusicThumbImage =   @"../res/music_progressBtn.png";
 static NSString *const kMusicThumbSelImage =   @"../res/music_progressBtn.png";
 static NSString *const kMusicBtnBg  =   @"../res/btnBg_music.png";
-static NSString *const kMusicBtnBgHighlight =   @"res/btnBg_music_highlight.png";
+static NSString *const kMusicBtnBgHighlight =   @"../res/btnBg_music_highlight.png";
 static NSString *const kMusicPreImage   =   @"../res/previous.png";
 static NSString *const kMusicPlayImage  =   @"../res/play.png";
 static NSString *const kMusicPauseImage =   @"../res/music_pause.png";
