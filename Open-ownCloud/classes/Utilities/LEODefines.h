@@ -105,7 +105,7 @@ static NSString *const kExtendUTIPlistFileName  =   @"/res/extendUTI.plist";
 static NSString *const kExtentToMIMEPlistFileName   =   @"/res/extentToMIME.plist";
 static NSString *const kResourceRootPath    =   @"../res/";
 
-static NSString *const kDefaultFolderImage  =   @"/res/folder.png";
+static NSString *const kDefaultFolderImage  =   @"../res/folder.png";
 static NSString *const kNavigationBg    =   @"../res/navigationBg.png";
 static NSString *const kNavigationBackBg    =   @"../res/btnBg_nav_back.png";
 static NSString *const kNavigationBackBgHighlight   =   @"../res/btnBg_nav_back_highlight.png";
