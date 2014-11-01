@@ -11,6 +11,6 @@
 
 const static NSUInteger kWebDAVDefaultMaxRequestCount   =   5;
 const static NSUInteger kWebDAVDefalutTimeOut   =   60;
-static NSString *const kWebDAVErrorDomain   =   @"com.saemobile.LEOWebDAV.error";
+static NSString *const kWebDAVErrorDomain   =   @"com.open.owncloud.LEOWebDAV.error";
 static const NSUInteger kWebDAVProperty =   4095;
 #endif
