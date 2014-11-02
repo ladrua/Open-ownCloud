@@ -108,6 +108,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		224AF0671A06F18A00C9EBC7 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		224AF0681A06F18A00C9EBC7 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2258B4BF1A02FC5E0032A451 /* AudioPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AudioPlayer.png; sourceTree = "<group>"; };
 		2258B4C01A02FC5E0032A451 /* FileBrowser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FileBrowser.png; sourceTree = "<group>"; };
 		2258B4C11A02FC5E0032A451 /* FileBrowserMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FileBrowserMenu.png; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 			knownRegions = (
 				en,
 				"zh-Hans",
+				nb,
 			);
 			mainGroup = AFABE9F81635498700EDCCF3;
 			productRefGroup = AFABEA041635498700EDCCF3 /* Products */;
@@ -744,6 +747,7 @@
 			children = (
 				AFA0B7A0165B557800889383 /* en */,
 				AFA0B7A3165B55FD00889383 /* zh-Hans */,
+				224AF0681A06F18A00C9EBC7 /* nb */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -753,6 +757,7 @@
 			children = (
 				AFABEA111635498700EDCCF3 /* en */,
 				AFA0B7A2165B55FD00889383 /* zh-Hans */,
+				224AF0671A06F18A00C9EBC7 /* nb */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
