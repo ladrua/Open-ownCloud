@@ -3,6 +3,8 @@
 
 Open-ownCloud iOS app, based on TeamDisk WebDAV app.
 
+Currently not supporting sharing of files.
+
 Update: Now works in iOS 8.1!
 
 ##FEATURES:
