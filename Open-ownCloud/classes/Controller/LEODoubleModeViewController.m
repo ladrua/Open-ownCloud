@@ -34,13 +34,13 @@
 #import "LEOImageThumbnailCell.h"
 #import "LEOSwitchView.h"
 #import "LEOServerInfo.h"
-
+NSString *_currentPath2;
 @interface LEODoubleModeViewController ()
 {
     UIButton *editButtonView;
     UITableView *_contentListView;
     LEOSwitchView *_titleView;
-//    UIButton *titleButtonView;
+    //    UIButton *titleButtonView;
     LEOEditToolBar *_editToolBar;
     MBProgressHUD *_hub;
     EGORefreshTableHeaderView *_refreshHeaderView;
@@ -55,11 +55,12 @@
     
     NSIndexPath *longPressIndexPath; // 长按后选中的元素行
     LEOWebDAVItem *_longPressItem; // 长按选中的元素
-   
+    
     LEOImageDataSource *_imageDataSource;
     
     BOOL isThumbnail;
 }
+
 @end
 
 @implementation LEODoubleModeViewController
@@ -67,33 +68,23 @@
 {
     self = [super init];
     if(self){
-
-        UIButton *backButtonView=[UIButton buttonWithType:UIButtonTypeCustom];
-        backButtonView.frame=CGRectMake(0,kLEONavBarBtnTopY,kDefalutNavItemWidth,kLEONavBarBtnHeight);
         
-        [backButtonView.titleLabel setFont:[UIFont systemFontOfSize:kLEONavBarFontSz]];
-        [backButtonView setTitle:NSLocalizedString(@"Back", @"") forState:UIControlStateNormal];
-        backButtonView.contentEdgeInsets=UIEdgeInsetsMake(0, kLEONavBarBackLeft, 0, 0);
-        [backButtonView setBackgroundImage:[UIImage imageNamed:kNavigationBackBg] forState:UIControlStateNormal];
-        [backButtonView setBackgroundImage:[UIImage imageNamed:kNavigationBackBgHighlight] forState:UIControlStateHighlighted];
-        [backButtonView addTarget: self action:@selector(backToServerList:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *leftButton=[[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];
- 
         
-        self.navigationItem.leftBarButtonItem=leftButton;
-      
+        
         CGRect frame=CGRectMake(0,0,kDefalutNavItemWidth*2,kLEONavBarBtnHeight);
         _titleView=[[LEOSwitchView alloc] initWithFrame:frame];
         _titleView.delegate=self;
         self.navigationItem.titleView=_titleView;
         [_titleView setEnabled:NO];
+        
         /* Set description of server as Root folder header title */
-        LEOAppDelegate *delegate=[[UIApplication sharedApplication] delegate];
-        LEOServerInfo *info= delegate.currentServer;
-        [_titleView setTitle: info.description];
+        
+        // LEOAppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+        // LEOServerInfo *info= delegate.currentServer;
+        // [_titleView setTitle: info.description];
+        _currentPath2=_currentPath;
         
         
-       
         
         editButtonView=[UIButton buttonWithType:UIButtonTypeCustom];
         editButtonView.frame=CGRectMake(0,kLEONavBarBtnTopY,kDefalutNavItemWidth,kLEONavBarBtnHeight);
@@ -116,6 +107,16 @@
         if (![_currentPath isEqualToString:@"/"]) {
             self.title=[_currentPath lastPathComponent];
             [_titleView setTitle:self.title];
+            _currentPath2=_currentPath;
+        }
+        if ([_currentPath isEqualToString:@"/"]) {
+            self.title=[_currentPath lastPathComponent];
+            LEOAppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+            LEOServerInfo *info= delegate.currentServer;
+            [_titleView setTitle: info.description];
+            
+            _currentPath2=_currentPath;
+            
         }
     }
     return self;
@@ -131,11 +132,25 @@
             if (![_currentPath isEqualToString:@"/"]) {
                 self.title=[_currentPath lastPathComponent];
                 [_titleView setTitle:self.title];
+                UIButton *backButtonView=[UIButton buttonWithType:UIButtonTypeCustom];
+                backButtonView.frame=CGRectMake(0,kLEONavBarBtnTopY,kDefalutNavItemWidth,kLEONavBarBtnHeight);
+                
+                [backButtonView.titleLabel setFont:[UIFont systemFontOfSize:kLEONavBarFontSz]];
+                [backButtonView setTitle:NSLocalizedString(@"Back", @"") forState:UIControlStateNormal];
+                backButtonView.contentEdgeInsets=UIEdgeInsetsMake(0, kLEONavBarBackLeft, 0, 0);
+                [backButtonView setBackgroundImage:[UIImage imageNamed:kNavigationBackBg] forState:UIControlStateNormal];
+                [backButtonView setBackgroundImage:[UIImage imageNamed:kNavigationBackBgHighlight] forState:UIControlStateHighlighted];
+                [backButtonView addTarget: self action:@selector(backToServerList:) forControlEvents:UIControlEventTouchUpInside];
+                UIBarButtonItem *leftButton=[[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];
+                
+                
+                self.navigationItem.leftBarButtonItem=leftButton;
+                _currentPath2=_currentPath;
             }
         }else {
             _currentItem=nil;
             _currentPath=@"/";
-            
+            _currentPath2=_currentPath;
         }
     }
     return self;
@@ -147,8 +162,8 @@
     
     UIImage *stretchImage=[UIImage imageNamed:kNavigationBg];
     stretchImage=[stretchImage stretchableImageWithLeftCapWidth:1 topCapHeight:0];
-	[self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
- 
+    [self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
+    
     // 初始化TabelView
     CGRect frame=self.view.frame;
     frame.size.height-=kLEOTabBarHeight+kLEONavBarHeight+15;
@@ -179,7 +194,7 @@
     _editToolBar.delegate=self;
     [_editToolBar setButtonStatus:NO AtIndex:2];
     [self.view addSubview:_editToolBar];
-    
+    _currentPath2=_currentPath;
     [self loadCurrentPath];
 }
 
@@ -188,7 +203,8 @@
 {
     UIImage *stretchImage=[UIImage imageNamed:kNavigationBg];
     stretchImage=[stretchImage stretchableImageWithLeftCapWidth:1 topCapHeight:0];
-	[self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
+    _currentPath2=_currentPath;
 }
 
 -(void)dealloc
@@ -222,6 +238,7 @@
     [self setupProgressHD:NSLocalizedString(@"Loading...",@"") isDone:NO];
     _loading = YES;
     [self sendLoadRequest];
+    _currentPath2=_currentPath;
 }
 
 #pragma mark - MBProgressHUD (Private)
@@ -292,6 +309,7 @@
     request.delegate=self;
     [_currentClient enqueueRequest:request];
     [request release];
+    _currentPath2=_currentPath;
 }
 
 // 下载
@@ -369,8 +387,8 @@
 -(void)addNewRequestForUpload:(LEOWebDAVItem *)one withServerInfo:(LEOServerInfo *)info andUploadPath:(NSString *)path
 {
     LEOWebDAVClient *uploadClient=[[[LEOWebDAVClient alloc] initWithRootURL:[NSURL URLWithString:info.url]
-                                                               andUserName:info.userName
-                                                               andPassword:info.password] autorelease];
+                                                                andUserName:info.userName
+                                                                andPassword:info.password] autorelease];
     NSString *uploadPath=[path stringByAppendingPathComponent:one.displayName];
     uploadPath=[uploadPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     LEOWebDAVUploadRequest *uploadRequest=[[LEOWebDAVUploadRequest alloc] initWithPath:uploadPath];
@@ -399,10 +417,12 @@
 -(void)reloadData
 {
     [_contentListView reloadData];
+    _currentPath2=_currentPath;
+    
 }
 
 -(void) backToServerList:(UIButton *)button {
-  
+    
     
     if (_contentListView.editing) {
         [self editModeOfList];
@@ -419,24 +439,24 @@
         [_hub release];
         _hub=nil;
     }
-
+    
     if ([_currentPath isEqualToString:@"/"]) {
         
         if (_loading) {
             _loading = NO;
             [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_contentListView];
-            
+            _currentPath2=_currentPath;
         }
         
         LEOAppDelegate *delegate=[[UIApplication sharedApplication] delegate];
         
-//        [delegate.window setRootViewController:de.rootTabBarController];
+        //        [delegate.window setRootViewController:de.rootTabBarController];
         
         /* This takes you back to list of servers via the back button */
         [delegate clearCurrentServer];
-       
         
-
+        
+        
     }else {
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -510,11 +530,13 @@
         // 显示上传目录选择视图
         if([root respondsToSelector:@selector(hideTabBarFromBottom:)]){
             [root hideTabBarFromBottom:YES];
+            _currentPath2=_currentPath;
         }
     }else {
         // 隐藏目录选择视图
         if([root respondsToSelector:@selector(hideTabBarFromBottom:)]){
             [root hideTabBarFromBottom:NO];
+            _currentPath2=_currentPath;
         }
     }
 }
@@ -524,13 +546,14 @@
     LEODoubleModeViewController *subSectionVC=[[LEODoubleModeViewController alloc] initWithItem:item];
     [self.navigationController pushViewController:subSectionVC animated:YES];
     [subSectionVC release];
+    _currentPath2=_currentPath;
 }
 
 -(void)finishLoad
 {
     _loading = NO;
     [_refreshHeaderView refreshLastUpdatedDate];
-	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_contentListView];
+    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:_contentListView];
 }
 
 -(void)setContentArray:(NSMutableArray *)contents
@@ -557,10 +580,10 @@
     NSLog(@"set content");
     if ([_contentArray count]>0&&[_contentArray count]==[_imageDataSource numberOfPhotos]) {
         // 全部为图片
-//        if ([_titleView enabled]==NO) {
-//            // 当第一次转变为全图片文件夹时，转换成缩略图视图，否则保持不变
-//            isThumbnail=YES;
-//        }
+        //        if ([_titleView enabled]==NO) {
+        //            // 当第一次转变为全图片文件夹时，转换成缩略图视图，否则保持不变
+        //            isThumbnail=YES;
+        //        }
         [_titleView setEnabled:YES];
         [_titleView setLeftOn:isThumbnail];
     }else {
@@ -639,7 +662,7 @@
         [_hub hide:NO];
     }
     [self setupProgressHD:NSLocalizedString(@"Delete Success",@"") isDone:YES];
-
+    
     [self resetUI:[_contentListView isEditing]];
     [self loadCurrentPath]; //重新刷新当前列表
 }
@@ -672,8 +695,8 @@
                                                destructiveButtonTitle:NSLocalizedString(@"Delete",@"")
                                                     otherButtonTitles:nil];
     actionSheet.tag=tag;
-	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-	[actionSheet showInView:self.view];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
 }
 
 // 跳转到新建文件夹视图
@@ -734,7 +757,7 @@
         }
         else {
             // 需要先下载，再打开
-//            [self downloadItem:_item withCallback:@selector(openFileIn:)];
+            //            [self downloadItem:_item withCallback:@selector(openFileIn:)];
             [self downloadItem:[NSDictionary dictionaryWithObject:_item forKey:@"item"] withCallback:@selector(openFileIn:)];
             [self setupProgressHD:NSLocalizedString(@"Loading...", @"") isDone:NO];
             return;
@@ -744,7 +767,7 @@
     UIDocumentInteractionController *documentIC=[UIDocumentInteractionController interactionControllerWithURL:url];
     documentIC.name=_item.displayName;
     documentIC.delegate=self;
-//    documentIC.UTI=[self currentItemUTI:_item];
+    //    documentIC.UTI=[self currentItemUTI:_item];
     [documentIC retain];
     [documentIC presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
 }
@@ -766,7 +789,7 @@
         UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     } else {
         // 需要先下载，再保存
-//        [self downloadItem:_item withCallback:@selector(saveImageToAlbum:)];
+        //        [self downloadItem:_item withCallback:@selector(saveImageToAlbum:)];
         [self downloadItem:[NSDictionary dictionaryWithObject:_item forKey:@"item"] withCallback:@selector(saveImageToAlbum:)];
         [self setupProgressHD:NSLocalizedString(@"Loading...", @"") isDone:NO];
         return;
@@ -1020,7 +1043,7 @@
         // 下载类请求
         NSData *myDate=result;
         LEOWebDAVDownloadRequest *req=(LEOWebDAVDownloadRequest *)aRequest;
-//        LEOWebDAVItem *downloadItem=req.item;
+        //        LEOWebDAVItem *downloadItem=req.item;
         NSDictionary *dictionary=req.dictionary;
         LEOWebDAVItem *downloadItem=dictionary==nil?nil:[dictionary objectForKey:@"item"];
         NSString *cacheFolder=[[LEOUtility getInstance] cachePathWithName:@"download"];
@@ -1030,7 +1053,7 @@
             [self performSelectorInBackground:@selector(computeThumbnail:) withObject:cacheUrl];
         }
         if (req.callback) {
-//            [self performSelectorOnMainThread:req.callback withObject:downloadItem waitUntilDone:NO];
+            //            [self performSelectorOnMainThread:req.callback withObject:downloadItem waitUntilDone:NO];
             [self performSelectorOnMainThread:req.callback withObject:dictionary waitUntilDone:NO];
         }
     }else if ([aRequest isKindOfClass:[LEOWebDAVMoveRequest class]]) {
@@ -1049,7 +1072,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return [_contentArray count];
+    //    return [_contentArray count];
     if (isThumbnail) {
         NSInteger count=ceil([_contentArray count]/4.0);
         NSLog(@"count:%d/%d",count,[_contentArray count]);
@@ -1254,7 +1277,7 @@
             [_contentListView reloadRowsAtIndexPaths:[NSArray arrayWithObject:longPressIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             LEOImageThumbnailCell *cell=(LEOImageThumbnailCell *)[_contentListView cellForRowAtIndexPath:longPressIndexPath];
             [cell showExtend:YES];
-
+            
             [_contentListView scrollToRowAtIndexPath:longPressIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
         }
     }
@@ -1400,16 +1423,16 @@
 #pragma mark - Action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	// the user clicked one of the OK/Cancel buttons
-	if (buttonIndex == 0)
-	{
+    // the user clicked one of the OK/Cancel buttons
+    if (buttonIndex == 0)
+    {
         if (actionSheet.tag==LEOContentSheetTagList) {
             [self getDeleteList];
         }
-		else if (actionSheet.tag==LEOContentSheetTagSingle) {
+        else if (actionSheet.tag==LEOContentSheetTagSingle) {
             [self getDeleteItem];
         }
-	} else if (buttonIndex==1) {
+    } else if (buttonIndex==1) {
         if (actionSheet.tag==LEOContentSheetTagSingle) {
             [self resetExtendCellView];
         }
@@ -1428,23 +1451,23 @@
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-	return _loading;
+    return _loading;
 }
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
-	return [NSDate date];
+    return [NSDate date];
 }
 
 #pragma mark UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 @end

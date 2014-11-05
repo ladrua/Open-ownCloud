@@ -9,6 +9,8 @@
 #import "LEOSettingsViewController.h"
 #import "LEODefines.h"
 #import "LEOUtility.h"
+#import "LEOAppDelegate.h"
+
 
 
 @interface LEOSettingsViewController ()
@@ -16,6 +18,7 @@
     UITableView *_settingsListView;
     MBProgressHUD *_hub;
 }
+
 @end
 
 @implementation LEOSettingsViewController
@@ -36,22 +39,25 @@
     [super viewDidLoad];
     UIImage *stretchImage=[UIImage imageNamed:kNavigationBg];
     stretchImage=[stretchImage stretchableImageWithLeftCapWidth:1 topCapHeight:0];
-	[self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:stretchImage forBarMetrics:UIBarMetricsDefault];
     
     CGRect frame=self.view.frame;
     frame.size.height-=kLEOTabBarHeight+kLEONavBarHeight;
     frame.origin.y=0;
     _settingsListView = [[UITableView alloc] initWithFrame:frame
-                                                   style:UITableViewStyleGrouped];
+                                                     style:UITableViewStyleGrouped];
     _settingsListView.delegate=self;
     _settingsListView.dataSource=self;
     _settingsListView.bounces=NO;
     _settingsListView.allowsSelectionDuringEditing=YES;
     _settingsListView.backgroundColor=[UIColor colorWithRed:kBackgroundColorR green:kBackgroundColorG blue:kBackgroundColorB alpha:kBackgroundColorA];
     [self.view addSubview:_settingsListView];
+    
+    
     UIView *footer=[[UIView alloc]initWithFrame:CGRectZero];
     [_settingsListView setTableFooterView:footer];
     [footer release];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -63,9 +69,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(DBisConnected) {
+        return 3;
+    }
+    else {
+        return 2;
+    }
     // Return the number of sections.
-    return 2;
+    
 }
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -92,6 +107,15 @@
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         cell.highlighted=NO;
     }
+    else if (DBisConnected && indexPath.section==2) {
+        cell.textLabel.text=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Manage Accounts",@"")];
+        cell.selectionStyle=UITableViewCellSelectionStyleGray;
+        cell.highlighted=NO;
+        
+        
+        
+        
+    }
     
     return cell;
 }
@@ -114,7 +138,14 @@
     if (indexPath.section==0 && indexPath.row==0) {
         [self clearCache];
     }
+    if (indexPath.section==2 && indexPath.row==0) {
+        [self DBgoToServerList];
+        
+    }
+    
 }
+
+
 
 
 
@@ -125,10 +156,10 @@
         if (buttonIndex==1) {
             // 确定
             [self setupProgressHD:NSLocalizedString(@"Clearing...",@"") isDone:NO];
-//            BOOL isSuccess=[LEOUtility clearCacheWithName:@"open"];
+            //            BOOL isSuccess=[LEOUtility clearCacheWithName:@"open"];
             BOOL isSuccess=[LEOUtility clearCache];
-//            isSuccess = isSuccess && [LEOUtility clearCacheWithName:@"download"];
-//            isSuccess = isSuccess && [LEOUtility clearCacheWithName:@"com.saemobile.ConnectDisk"];
+            //            isSuccess = isSuccess && [LEOUtility clearCacheWithName:@"download"];
+            //            isSuccess = isSuccess && [LEOUtility clearCacheWithName:@"com.saemobile.ConnectDisk"];
             if (isSuccess) {
                 [self setupProgressHD:NSLocalizedString(@"Clear Success",@"") isDone:YES];
             }else {
@@ -138,6 +169,25 @@
             NSLog(@"clear :%@",isSuccess?@"成功":@"失败");
         } else if (buttonIndex==0) {
             // 取消
+        }
+    }
+    
+    
+    if (alertView.tag==0x901) {
+        if (buttonIndex==1) {
+            
+            LEOAppDelegate *delegate=[[UIApplication sharedApplication] delegate];
+            
+            //        [delegate.window setRootViewController:de.rootTabBarController];
+            
+            /* This takes you back to list of servers via the back button */
+            [delegate clearCurrentServer];
+            [self viewDidLoad];
+            
+        }
+        
+        else if (buttonIndex==0) {
+            
         }
     }
     
@@ -175,5 +225,22 @@
     if (done) {
         [_hub hide:YES afterDelay:2];
     }
+}
+
+-(void)DBgoToServerList
+{
+    
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil
+                                                  message:NSLocalizedString(@"You're about to log out of your current server?",@"")
+                                                 delegate:self
+                                        cancelButtonTitle:NSLocalizedString(@"Cancel",@"")
+                                        otherButtonTitles:NSLocalizedString(@"Log Out",@""),nil];
+    alert.delegate=self;
+    alert.tag=0x901;
+    [alert show];
+    [alert release];
+    
+    
+    
 }
 @end

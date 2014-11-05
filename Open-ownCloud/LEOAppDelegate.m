@@ -27,6 +27,7 @@
 @synthesize client;
 @synthesize networkController;
 @synthesize currentServer=_currentServer;
+bool DBisConnected;
 
 - (void)dealloc
 {
@@ -40,11 +41,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-//    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
-//    CGRect frame=self.window.frame;
-//    NSLog(@"window:%f,%f,%f,%f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-
-//    self.window.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
+    //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    //    CGRect frame=self.window.frame;
+    //    NSLog(@"window:%f,%f,%f,%f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+    
+    //    self.window.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
     LEOServerListViewController *serverListVC=[[LEOServerListViewController alloc]init];
     UINavigationController *navServerListVC=[[UINavigationController alloc]initWithRootViewController:serverListVC];
     _settingsVC=[[LEOSettingsViewController alloc]init];
@@ -57,7 +58,7 @@
     _rootTabBarController=[[LEOTabBarViewController alloc] initWithViewControllers:rootTabBarVCArray andItems:rootTabBarItemArray];
     self.window.rootViewController = self.rootTabBarController;
     [self.window makeKeyAndVisible];
-//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     return YES;
 }
 
@@ -85,6 +86,9 @@
     _currentServer=[[LEOServerInfo alloc] initWithInfo:info];
     [self setupServerControllers];
     self.window.rootViewController=_serverTabBarController;
+    DBisConnected=YES;
+    [_settingsVC viewDidLoad];
+    
 }
 
 -(void)clearCurrentServer
@@ -96,6 +100,7 @@
     [_musicVC clearMusicController];
     [_musicVC release];
     [_serverTabBarController release];
+    DBisConnected=NO;
 }
 
 -(LEONetworkController *)setupNetwork:(LEOServerInfo *)info
@@ -155,9 +160,9 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-//    AVAudioSession *session = [AVAudioSession sharedInstance];
-//    [session setActive:YES error:nil];
-//    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    //    AVAudioSession *session = [AVAudioSession sharedInstance];
+    //    [session setActive:YES error:nil];
+    //    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     oldTaskId = UIBackgroundTaskInvalid;
     oldTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
@@ -165,7 +170,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -186,6 +191,13 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+}
+
+- (void)DBBackToServerList
+{
+    
+    
+    
 }
 
 @end

@@ -20,7 +20,7 @@
 @interface LEOAppDelegate : UIResponder <UIApplicationDelegate>{
     LEOTabBarViewController *_rootTabBarController;
     LEOTabBarViewController *_serverTabBarController;
-//    LEOContentListViewController *_contentListVC;
+    //    LEOContentListViewController *_contentListVC;
     LEODoubleModeViewController *_contentListVC;
     LEOUploadViewController *_uploadVC;
     LEOMusicViewController *_musicVC;
@@ -43,9 +43,10 @@
 @property (nonatomic, readonly) LEOMusicViewController *musicVC;
 @property (nonatomic, readonly) LEOWebDAVClient *client;
 @property (nonatomic, readonly) LEONetworkController *networkController;
-
+extern bool DBisConnected;
 -(LEOWebDAVClient *)setupClient:(LEOServerInfo *)info;
 -(LEONetworkController *)setupNetwork:(LEOServerInfo *)info;
 -(void)setupCurrentServer:(LEOServerInfo *)info;
 -(void)clearCurrentServer;
+-(void)DBBackToServerList;
 @end

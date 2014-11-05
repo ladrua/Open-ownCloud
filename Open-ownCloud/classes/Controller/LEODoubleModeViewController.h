@@ -29,6 +29,7 @@ UIActionSheetDelegate,UIDocumentInteractionControllerDelegate>
 {
     LEOWebDAVClient *_currentClient;
 }
+extern NSString *_currentPath2;
 -(id)initWithPath:(NSString *)path;
 -(id)initWithItem:(LEOWebDAVItem *)_item;
 -(void)loadCurrentPath;
