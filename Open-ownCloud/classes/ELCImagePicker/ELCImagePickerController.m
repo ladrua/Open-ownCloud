@@ -12,6 +12,7 @@
 #import "ELCAssetTablePicker.h"
 #import "LEODefines.h"
 #import "LEOChoosePathViewController.h"
+#import "LEODoubleModeViewController.h"
 
 @interface ELCImagePickerController ()
 {
@@ -36,7 +37,7 @@
     _uploadToolBar.delegate=self;
     [self.view addSubview:_uploadToolBar];
     
-    [self setUploadPath:@"/"];
+    [self setUploadPath:_currentPath2];
 }
 
 -(void)cancelImagePicker {
